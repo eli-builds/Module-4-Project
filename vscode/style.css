@@ -5,13 +5,15 @@
   box-sizing: border-box;
   font-family: "Inconsolata", monospace;
 }
+
 li {
   list-style-type: none;
 }
 html {
   scroll-behavior: smooth;
 }
-section, nav {
+section,
+nav {
   background-color: rgb(245, 245, 245);
   transition: all 300ms ease, color 300ms ease;
 }
@@ -54,7 +56,8 @@ p {
 .click:active {
   transform: scale(0.8);
 }
-.click, button {
+.click,
+button {
   cursor: pointer;
 }
 
@@ -159,12 +162,20 @@ a {
   text-decoration: none;
 }
 
-nav, 
-.scroll, 
+nav,
+.scroll,
 .header {
   opacity: 1;
   visibility: visible;
-  transition: all 600ms 800ms;
+  /* transition: all 300ms 800ms; */
+}
+
+.modal--fade {
+  transition: opacity 600ms ease, visibility 600ms ease;
+}
+
+.modal--open .modal--fade {
+  transition: all 400ms 800ms;
 }
 
 .modal--open nav,
@@ -179,7 +190,7 @@ nav,
 .dark-theme nav,
 .dark-theme .section__title,
 .dark-theme .section__subtitle,
-.dark-theme  .nav__link--anchor,
+.dark-theme .nav__link--anchor,
 .dark-theme .fa-adjust,
 .dark-theme .header__para {
   color: white;
@@ -191,7 +202,7 @@ nav,
   transition: all 300ms ease;
 }
 
-.dark-theme #personal-logo {
+.dark-theme #personal--logo {
   filter: invert(1);
   /* filter: none; */
 }
@@ -200,9 +211,9 @@ nav,
   border-color: white;
 }
 
-.dark-theme .scroll__icon:after 
+.dark-theme .scroll__icon:after,
 .dark-theme .link__hover-effect--black:after {
-  background-color: white;
+  background-color: #84b4c9;
 }
 
 .dark-theme .mail__btn {
@@ -321,7 +332,6 @@ MODAL
   visibility: visible;
 }
 
-
 .modal__half {
   width: 50%;
   padding: 40px 72px;
@@ -334,7 +344,7 @@ MODAL
 
 .modal--open .modal__about,
 .modal--open .modal__contact {
-  transform: translateX(0%)
+  transform: translateX(0%);
 }
 
 .modal__about {
@@ -473,17 +483,23 @@ MODAL
 }
 
 .modal__exit {
-    position: absolute;
-    top: 30px;
-    right: 40px;
-    font-size: 36px;
-    color: white;
-    z-index: 100;
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  font-size: 36px;
+  color: white;
+  z-index: 100;
 }
 
 /*
 PROJECTS SECTION
 */
+.projects-section,
+.project__wrapper,
+.section__title {
+  position: relative;
+  z-index: 10;
+}
 
 .section__title {
   text-align: center;
@@ -492,9 +508,10 @@ PROJECTS SECTION
 }
 .project__img {
   width: 100%;
-  height: 100%;
+  height: auto;
   display: block;
   transition: all 600ms ease;
+  object-fit: fill;
 }
 
 .project__wrapper:hover .project__img {
@@ -508,7 +525,8 @@ PROJECTS SECTION
   box-shadow: 0 20px 80px 0 rgb(0, 0, 0, 0.45);
   overflow: hidden;
   margin-bottom: 60px;
-  height: 400px;
+  height: auto;
+
 }
 .project__wrapper:hover .project__description {
   opacity: 1;
@@ -555,7 +573,7 @@ PROJECTS SECTION
 }
 
 /*
-PROJECTS SECTION
+FOOTER 
 */
 
 footer {
@@ -588,4 +606,131 @@ footer {
   display: flex;
   justify-content: space-around;
   margin: 28px 0;
+}
+
+/* ANIMATIONS */
+/* Fullscreen container */
+.ellipse-container {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Base particle styling */
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  opacity: 0.22;
+  background: var(--particle-color);
+  animation: ellipseOrbit linear infinite;
+  will-change: transform;
+}
+
+/* Light mode: subtle accent color blended with black */
+.particle {
+  --particle-color: #84b4c9;
+}
+
+/* Dark mode: softer, cooler, more ethereal */
+@media (prefers-color-scheme: dark) {
+  .particle {
+    --particle-color: #84b4c9;
+  }
+}
+
+/* Elliptical orbit path */
+@keyframes ellipseOrbit {
+  from {
+    transform: rotate(0deg)
+      translateX(var(--radius-x))
+      translateY(var(--radius-y))
+      rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg)
+      translateX(var(--radius-x))
+      translateY(var(--radius-y))
+      rotate(-360deg);
+  }
+}
+
+
+/* RESPONSIVENESS */
+
+/* small phones, tablets, large smartphones */
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 80px;
+  }
+  
+  .header__para {
+    font-size: 20px;
+  }
+
+
+  .modal {
+    top: 0;
+    left: 0;
+    height: auto;
+    transform: none;
+    width: 100%;
+    flex-direction: column-reverse;
+    border-radius: 0;
+  }
+
+  .modal__half {
+    width: 100%;
+  }
+
+}
+
+/* small phones */
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 60px;
+  }
+  .title__secondary {
+    font-size: 32px;
+  }
+  .header__para {
+    font-size: 18px;
+    max-width: 100%;
+  }
+
+  .modal__language {
+    width: 50%;
+  }
+
+  .project__wrapper {
+    height: 300px;
+  }
+
+  .nav__link:first-child {
+    display: none;
+  }
+
+  .project__description--para {
+    display: none;
+  }
+
+  .project__description {
+      left: 0;
+      padding: 0;
+      width: 100%;
+      text-align: center;
+  }
+
+  .project__description--sub-title {
+    margin-bottom: 8px;
+  }
+
+  .modal--half {
+    padding: 40px;
+  }
 }
