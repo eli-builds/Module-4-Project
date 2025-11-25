@@ -41,17 +41,40 @@ function contact(event) {
     }, 1000);
 }
 
-// let isModalOpen = false;
-// function toggleModal() {
-//     isModalOpen = !isModalOpen;
-//     if (isModalOpen) {
-//         // isModalOpen = false;
-//         return document.body.classList.remove('modal--open');
-//     }
-//     // isModalOpen = true;
-//     document.body.classList += ' modal--open ';
-// }
 
 function toggleModal() {
     document.body.classList.toggle('modal--open');
+}
+
+
+// ANIMATIONS
+
+const container = document.querySelector('.ellipse-container');
+const particleCount = 64; // sparse = luxury
+
+for (let i = 0; i < particleCount; i++) {
+  const p = document.createElement('div');
+  p.classList.add('particle');
+
+  // Random radii for ellipses (X wider than Y)
+  const radiusX = 40 + Math.random() * 220;  // 40–260px
+  const radiusY = 20 + Math.random() * 120;  // 20–140px
+
+  p.style.setProperty('--radius-x', `${radiusX}px`);
+  p.style.setProperty('--radius-y', `${radiusY}px`);
+
+  // Random center point in the viewport
+  p.style.top = Math.random() * 100 + '%';
+  p.style.left = Math.random() * 100 + '%';
+
+  // Subtle size variation for natural feel
+  const size = 2 + Math.random() * 3; // 2–5px
+  p.style.width = `${size}px`;
+  p.style.height = `${size}px`;
+
+  // Random animation timing
+  p.style.animationDuration = (20 + Math.random() * 18) + 's';
+  p.style.animationDelay = (-Math.random() * 20) + 's';
+
+  container.appendChild(p);
 }
